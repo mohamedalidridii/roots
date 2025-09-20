@@ -1,7 +1,7 @@
 "use client";
 import "./index.css";
 import { useRef, useState, useEffect } from "react";
-
+import Link from "next/link";
 import useCartStore from "@/store/useCartStore";
 
 import gsap from "gsap";
@@ -247,8 +247,8 @@ export default function Home() {
               className="product-preview-hero"
               onClick={() => navigateTo(`/catalogue/mirror-orb-mockup`)}
             >
-              <img src="/product_images/product_001.jpeg" alt="" />
-            </div>
+          <img src="/product_images/product_001.jpeg"/>
+	  </div>
             <div
               className="product-preview-hero"
               onClick={() => navigateTo(`/catalogue/earbud-ad-mockup`)}
