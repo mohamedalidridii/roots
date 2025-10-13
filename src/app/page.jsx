@@ -233,36 +233,13 @@ export default function Home() {
       <div className="home-page-content">
         <div className="header">
           <h1 className="header-line-1">
-            <span>ROOTS</span>
+            <span>This page is currently</span>
           </h1>
           <h1 className="header-line-2">
-            <span>Care Cubes</span>
+            <span>Unavailable</span>
           </h1>
         </div>
 
-        <div className="home-page-footer">
-          <div className="hp-footer-col"></div>
-          <div className="hp-footer-col">
-            <div
-              className="product-preview-hero"
-              onClick={() => navigateTo(`/catalogue/mirror-orb-mockup`)}
-            >
-          <img src="/product_images/product_001.jpeg"/>
-	  </div>
-            <div
-              className="product-preview-hero"
-              onClick={() => navigateTo(`/catalogue/earbud-ad-mockup`)}
-            >
-              <img src="/product_images/product_002.jpeg" alt="" />
-            </div>
-            <div
-              className="product-preview-hero"
-              onClick={() => navigateTo(`/catalogue/minimal-phone-mockup`)}
-            >
-              <img src="/product_images/product_003.jpeg" alt="" />
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
