@@ -88,46 +88,43 @@ export default function Home() {
       setIsAnimating(false);
     }, 1500);
   };
-
   const startLoader = () => {
-    const counterElement =
-      document.querySelector(".count p") || counterRef.current;
-    const totalDuration = 2000;
-    const totalSteps = 11;
+    const textElement = counterRef.current;
+    
+    // 1. Define the target text
+    const targetText = "Roots Care cube";
+    const totalDuration = 2000; // Total animation time remains the same
+
+    // 2. Calculate steps based on the text's length
+    const totalSteps = targetText.length;
     const timePerStep = totalDuration / totalSteps;
 
-    if (counterElement) {
-      counterElement.textContent = "0";
+    // 3. Ensure the element is valid and initialize it to be empty
+    if (!textElement) {
+        console.error("Counter ref element not found.");
+        return;
     }
+    textElement.textContent = "";
 
     let currentStep = 0;
-    function updateCounter() {
-      currentStep++;
-      if (currentStep <= totalSteps) {
-        const progress = currentStep / totalSteps;
-        let value;
+    function updateText() {
+        // Stop if we have displayed all letters
+        if (currentStep >= totalSteps) {
+            return;
+        }
+        currentStep++;
 
-        if (currentStep === totalSteps) {
-          value = 100;
-        } else {
-          const exactValue = progress * 100;
-          const minValue = Math.max(Math.floor(exactValue - 5), 1);
-          const maxValue = Math.min(Math.floor(exactValue + 5), 99);
-          value =
-            Math.floor(Math.random() * (maxValue - minValue + 1)) + minValue;
-        }
-        if (counterElement) {
-          counterElement.textContent = value;
-        }
-        if (currentStep < totalSteps) {
-          setTimeout(updateCounter, timePerStep);
-        }
-      }
+        // 4. The core logic: Get a slice of the string
+        const newText = targetText.slice(0, currentStep);
+        textElement.textContent = newText;
+
+        // Schedule the next letter to appear
+        setTimeout(updateText, timePerStep);
     }
 
-    setTimeout(updateCounter, timePerStep);
+    // Start the animation
+    updateText();
   };
-
   useEffect(() => {
     if (showPreloader) {
       startLoader();
@@ -219,7 +216,7 @@ export default function Home() {
               <div className="loader-bg"></div>
             </div>
             <div className="count">
-              <p ref={counterRef}>0</p>
+              <p ref={counterRef}></p>
             </div>
             <div className="loader-2"></div>
           </div>
@@ -233,12 +230,35 @@ export default function Home() {
       <div className="home-page-content">
         <div className="header">
           <h1 className="header-line-1">
-            <span>This page is currently</span>
+            <span>Roots</span>
           </h1>
           <h1 className="header-line-2">
-            <span>Unavailable</span>
+            <span>Care Cube</span>
           </h1>
         </div>
+	  <div className="info-wrapper">
+        <div className="info-col">
+          <div className="info-item">
+            <div className="info-title">
+              <div className="revealer">
+              </div>
+            </div>
+            <div
+              className="info-copy"
+              id="info-description"
+              
+            >
+              <p>
+          Roots transforme les rituels de soin en gestes simples et responsables :    
+	  </p>
+              <p>
+          des cubes solides, zéro plastique, qui protègent la planète sans compromis sur l’efficacité.
+    
+	  </p>
+            </div>
+          </div>
+        </div>
+	  </div>
 
       </div>
     </div>
