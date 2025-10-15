@@ -38,7 +38,7 @@ export default function Home() {
         },
         {
           opacity: 0.2,
-          transform: "translateY(-35%)",
+          transform: "translateY(-50%)",
         },
       ],
       {
@@ -236,6 +236,8 @@ export default function Home() {
             <span>Care Cube</span>
           </h1>
         </div>
+      </div>
+	  
 	  <div className="info-wrapper">
         <div className="info-col">
           <div className="info-item">
@@ -259,8 +261,6 @@ export default function Home() {
           </div>
         </div>
 	  </div>
-
-      </div>
     </div>
   );
 }

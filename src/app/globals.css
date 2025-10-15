@@ -15,11 +15,9 @@ body {
 
 body {
   font-family: "PP Neue Montreal", sans-serif;
-  background-color: #b0c4b1;
 }
 
 html.lenis {
-  height: auto;
 }
 
 .lenis.lenis-smooth {
