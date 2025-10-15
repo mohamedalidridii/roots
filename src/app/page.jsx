@@ -130,7 +130,7 @@ export default function Home() {
       startLoader();
 
       gsap.set(".home-page-content", {
-        clipPath: "polygon(0% 100%, 100% 100%, 100% 100%, 0% 100%)",
+        clipPath: "polygon(0% 100%, 10% 100%, 100% 100%, 0% 100%)",
       });
 
       const tl = gsap.timeline();
@@ -175,7 +175,7 @@ export default function Home() {
       });
     } else {
       gsap.set(".home-page-content", {
-        clipPath: "polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%)",
+clipPath: "polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%)",
       });
     }
   }, [showPreloader]);

@@ -17,7 +17,7 @@
   height:50vh;
   padding-top: 25vh;
   padding: 1em;
-  background-color: #ffffff;
+  background-color: #fffff;
 }
 
 .header {
