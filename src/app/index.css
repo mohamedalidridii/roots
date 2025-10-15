@@ -52,7 +52,7 @@
   position: relative;
   width: 100vw;
   height: 100vh;
-  top: 100%;
+  top: 90%;
   bottom: 1em;
   display: flex;
   flex-direction: column;
