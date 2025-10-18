@@ -261,15 +261,22 @@ clipPath: "polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%)",
           </div>
         </div>
 	  </div>
-  	<div className="products">
-		<div>1</div>
+       <section style={{height: '100vh'}}></section>
 
-		<div>2</div>
+        <div className="horizontal-scroll-section">
+          <div className="pin-wrap">
+            <div className="image-gallery">
+              <img src="product_images/product_001.jpeg" alt="Image 1"/>
+              <img src="product_images/product_002.jpeg" alt="Image 2"/>
+	      <img src="product_images/product_003.jpeg" alt="Image 3"/>
+      	      <img src="product_images/product_004.jpeg" alt="Image 4"/>
+      	    </div>
+         </div>
+	</div>
 
-		<div>3</div>
+	<section style={{height: '100vh'}}></section>
+
 	  
-		<div>4</div>
-	  </div>
 	  </div>
   );
 }

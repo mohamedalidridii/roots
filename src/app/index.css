@@ -199,6 +199,30 @@ h1 span {
   align-items: center;
 
 }
+.horizontal-scroll-section {
+  position: relative;
+  height: 100vh;
+  overflow-x: hidden;
+}
+
+.pin-wrap {
+  width: 400vw; /* Four images, each ~100vw */
+  height: 100vh;
+  display: flex;
+}
+
+.image-gallery {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.image-gallery img {
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+}
 @media (max-width: 900px) {
   .header {
     width: 100%;
