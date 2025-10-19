@@ -3,13 +3,17 @@ import "./index.css";
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
 import useCartStore from "@/store/useCartStore";
-
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import CustomEase from "gsap/CustomEase";
 import { useTransitionRouter } from "next-view-transitions";
+import Lenis from "lenis";
+
 
 gsap.registerPlugin(CustomEase);
+
+gsap.registerPlugin(ScrollTrigger);
 CustomEase.create("hop", ".15, 1, .25, 1");
 CustomEase.create("hop2", ".9, 0, .1, 1");
 
@@ -19,6 +23,7 @@ export default function Home() {
   const router = useTransitionRouter();
   const [isAnimating, setIsAnimating] = useState(false);
   const isCartOpen = useCartStore((state) => state.isCartOpen);
+  const horizontalRef = useRef(null);
   const container = useRef(null);
   const counterRef = useRef(null);
   const [showPreloader, setShowPreloader] = useState(isInitialLoad);
@@ -29,6 +34,76 @@ export default function Home() {
     };
   }, []);
 
+	useEffect(() =>{
+		const lenis = new Lenis({
+	  	duration: 1.2 ,
+	  	easing: (t) => Math.min(1,1.001 - Math.pow(2, -10 * t)),
+	  	orientation: "vertical",
+      		gestureOrientation: "vertical",
+      		smoothWheel: true,
+      		wheelMultiplier: 1,
+      		smoothTouch: false,
+      		touchMultiplier: 2,
+      		infinite: false,
+
+
+ 	 });
+    
+	lenis.on("scroll", ScrollTrigger.update);
+
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000);
+    });
+
+    gsap.ticker.lagSmoothing(0);
+
+    // Cleanup
+    return () => {
+      lenis.destroy();
+      gsap.ticker.remove(lenis.raf);
+    };
+  }, []);
+    useEffect(() => {
+    // Wait for preloader to finish before initializing scroll animations
+    const delay = showPreloader ? 4500 : 0;
+
+    const timer = setTimeout(() => {
+      const section = horizontalRef.current;
+      if (!section) return;
+
+      const pinWrap = section.querySelector(".pin-wrap");
+      const gallery = section.querySelector(".image-gallery");
+      
+      if (!pinWrap || !gallery) return;
+
+      // Calculate scroll distance
+      const scrollDistance = gallery.scrollWidth - window.innerWidth;
+
+      // Create horizontal scroll animation
+      const scrollTween = gsap.to(gallery, {
+        x: -scrollDistance,
+        ease: "none",
+        scrollTrigger: {
+          trigger: section,
+          start: "top top",
+          end: () => `+=${scrollDistance}`,
+          pin: true,
+          scrub: 1,
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
+        },
+      });
+
+      // Cleanup function
+      return () => {
+        scrollTween.scrollTrigger?.kill();
+        scrollTween.kill();
+      };
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [showPreloader]);
+	
   function slideInOut() {
     document.documentElement.animate(
       [
@@ -263,7 +338,7 @@ clipPath: "polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%)",
 	  </div>
        <section style={{height: '100vh'}}></section>
 
-        <div className="horizontal-scroll-section">
+        <div className="horizontal-scroll-section" ref={horizontalRef}>
           <div className="pin-wrap">
             <div className="image-gallery">
               <img src="product_images/product_001.jpeg" alt="Image 1"/>
