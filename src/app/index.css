@@ -206,7 +206,7 @@ h1 span {
 }
 
 .pin-wrap {
-  width: 400vw; /* Four images, each ~100vw */
+  width: 300vw; /* Four images, each ~100vw */
   height: 100vh;
   display: flex;
 }
@@ -222,6 +222,19 @@ h1 span {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
+}
+.section-4{
+  position: relative;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  top: -2rem;
+  justify-content: center;
+  align-items: center;
+}
+.section-4 h1 {
+  color: red;
+  font-size: 5rem;
 }
 @media (max-width: 900px) {
   .header {
