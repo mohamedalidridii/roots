@@ -138,7 +138,7 @@ export default function Home() {
 
       // Animate text color from black to white
       const textTween = gsap.to(section4Text, {
-        color: '#ffffff',
+        color: '#000000',
         ease: "none",
         scrollTrigger: {
           trigger: section4,
@@ -403,6 +403,7 @@ clipPath: "polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%)",
       	    </div>
          </div>
 	</div>
+	  <section style={{backgroundColor: 'black', position: 'relative'}}></section>
 	<section className="section-4">
 		<h1>Chaque cube Roots est un petit geste qui fait la différence.</h1>
 	  </section>
