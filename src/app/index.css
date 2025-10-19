@@ -202,13 +202,14 @@ h1 span {
 .horizontal-scroll-section {
   position: relative;
   height: 100vh;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 .pin-wrap {
   width: 300vw; /* Four images, each ~100vw */
   height: 100vh;
   display: flex;
+  will-change: transform;
 }
 
 .image-gallery {
@@ -222,18 +223,21 @@ h1 span {
   width: 100vw;
   height: 100vh;
   object-fit: cover;
+  flex-shrink: 0;
 }
 .section-4{
   position: relative;
   display: flex;
   width: 100vw;
-  height: 100vh;
-  top: -2rem;
+  height: 200vh;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  background-color: #ffffff; 
+  color: #000000;
 }
 .section-4 h1 {
-  color: red;
+  padding: 5rem;
   font-size: 5rem;
 }
 @media (max-width: 900px) {

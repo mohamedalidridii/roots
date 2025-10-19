@@ -11,9 +11,7 @@ import { useTransitionRouter } from "next-view-transitions";
 import Lenis from "lenis";
 
 
-gsap.registerPlugin(CustomEase);
-
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(CustomEase, ScrollTrigger);
 CustomEase.create("hop", ".15, 1, .25, 1");
 CustomEase.create("hop2", ".9, 0, .1, 1");
 
@@ -63,6 +61,7 @@ export default function Home() {
       gsap.ticker.remove(lenis.raf);
     };
   }, []);
+
     useEffect(() => {
     // Wait for preloader to finish before initializing scroll animations
     const delay = showPreloader ? 4500 : 0;
@@ -77,25 +76,36 @@ export default function Home() {
       if (!pinWrap || !gallery) return;
 
       // Calculate scroll distance
-      const scrollDistance = gallery.scrollWidth - window.innerWidth;
-
+      const getScrollAmount = () => {
+        const galleryWidth = gallery.scrollWidth;
+        return -(galleryWidth - window.innerWidth);
+      };
       // Create horizontal scroll animation
       const scrollTween = gsap.to(gallery, {
-        x: -scrollDistance,
+        x: getScrollAmount,
         ease: "none",
         scrollTrigger: {
           trigger: section,
           start: "top top",
-          end: () => `+=${scrollDistance}`,
+          end: () => `+=${gallery.scrollWidth}`,
           pin: true,
           scrub: 1,
           invalidateOnRefresh: true,
           anticipatePin: 1,
+	  onUpdate: (self)=>{
+	    console.log("Progress:", self.progress);
+	  }
+
         },
       });
+      const handleResize = () => {
+        ScrollTrigger.refresh();
+      };
 
+      window.addEventListener("resize", handleResize);
       // Cleanup function
       return () => {
+	window.removeEventListner("resize", handleResize);
         scrollTween.scrollTrigger?.kill();
         scrollTween.kill();
       };
@@ -103,7 +113,53 @@ export default function Home() {
 
     return () => clearTimeout(timer);
   }, [showPreloader]);
-	
+  // Section-4 color transition animation
+  useEffect(() => {
+    const delay = showPreloader ? 4500 : 0;
+
+    const timer = setTimeout(() => {
+      const section4 = document.querySelector('.section-4');
+      const section4Text = document.querySelectorAll('.section-4 *');
+      
+      if (!section4) return;
+
+      // Animate background color from white to black
+      const bgTween = gsap.to(section4, {
+        backgroundColor: '#ffffff',
+        ease: "none",
+        scrollTrigger: {
+          trigger: section4,
+          start: "top bottom-=3vh",
+          end: "top top+=3vh",
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      // Animate text color from black to white
+      const textTween = gsap.to(section4Text, {
+        color: '#ffffff',
+        ease: "none",
+        scrollTrigger: {
+          trigger: section4,
+          start: "top bottom-=3vh",
+          end: "top top+=3vh",
+          scrub: true,
+          invalidateOnRefresh: true,
+        },
+      });
+
+      // Cleanup function
+      return () => {
+        bgTween.scrollTrigger?.kill();
+        bgTween.kill();
+        textTween.scrollTrigger?.kill();
+        textTween.kill();
+      };
+    }, delay);
+
+    return () => clearTimeout(timer);
+  }, [showPreloader]);	
   function slideInOut() {
     document.documentElement.animate(
       [
@@ -344,14 +400,11 @@ clipPath: "polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%)",
               <img src="product_images/product_001.jpeg" alt="Image 1"/>
               <img src="product_images/product_002.jpeg" alt="Image 2"/>
 	      <img src="product_images/product_003.jpeg" alt="Image 3"/>
-      	      <img src="product_images/product_004.jpeg" alt="Image 4"/>
       	    </div>
          </div>
 	</div>
-
-	<section style={{height: '400vh'}}></section>
 	<section className="section-4">
-		<h1>Hello world</h1>
+		<h1>Chaque cube Roots est un petit geste qui fait la différence.</h1>
 	  </section>
 	  
 	  
