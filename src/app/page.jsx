@@ -89,7 +89,7 @@ export default function Home() {
           start: "top top",
           end: () => `+=${gallery.scrollWidth}`,
           pin: true,
-          scrub: 1,
+          scrub: 0,
           invalidateOnRefresh: true,
           anticipatePin: 1,
 	  onUpdate: (self)=>{
@@ -113,53 +113,7 @@ export default function Home() {
 
     return () => clearTimeout(timer);
   }, [showPreloader]);
-  // Section-4 color transition animation
-  useEffect(() => {
-    const delay = showPreloader ? 4500 : 0;
-
-    const timer = setTimeout(() => {
-      const section4 = document.querySelector('.section-4');
-      const section4Text = document.querySelectorAll('.section-4 *');
-      
-      if (!section4) return;
-
-      // Animate background color from white to black
-      const bgTween = gsap.to(section4, {
-        backgroundColor: '#ffffff',
-        ease: "none",
-        scrollTrigger: {
-          trigger: section4,
-          start: "top bottom-=3vh",
-          end: "top top+=3vh",
-          scrub: true,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      // Animate text color from black to white
-      const textTween = gsap.to(section4Text, {
-        color: '#000000',
-        ease: "none",
-        scrollTrigger: {
-          trigger: section4,
-          start: "top bottom-=3vh",
-          end: "top top+=3vh",
-          scrub: true,
-          invalidateOnRefresh: true,
-        },
-      });
-
-      // Cleanup function
-      return () => {
-        bgTween.scrollTrigger?.kill();
-        bgTween.kill();
-        textTween.scrollTrigger?.kill();
-        textTween.kill();
-      };
-    }, delay);
-
-    return () => clearTimeout(timer);
-  }, [showPreloader]);	
+	
   function slideInOut() {
     document.documentElement.animate(
       [
@@ -403,7 +357,6 @@ clipPath: "polygon(0% 0%, 0% 0%, 0% 0%, 0% 0%)",
       	    </div>
          </div>
 	</div>
-	  <section style={{backgroundColor: 'black', position: 'relative'}}></section>
 	<section className="section-4">
 		<h1>Chaque cube Roots est un petit geste qui fait la différence.</h1>
 	  </section>
